@@ -11,6 +11,7 @@ const Y_START: f64 = 1.0;
 const MAX_ITERS: isize = 1000;
 
 fn create_canvas() -> Vec<Vec<(f64, f64)>> {
+    // Creating x and y axis
     let mut axis: Vec<_> = Vec::new();
     for y in 0..HEIGHT {
         let mut row = Vec::new();
@@ -25,6 +26,7 @@ fn create_canvas() -> Vec<Vec<(f64, f64)>> {
 }
 
 fn escaped_at(co_ordinates: (f64, f64)) -> isize {
+    // Escape algorithm
     let mut z = Complex { re: 0.00, im: 0.00 };
     let c = Complex {
         re: co_ordinates.0,
@@ -40,8 +42,10 @@ fn escaped_at(co_ordinates: (f64, f64)) -> isize {
 }
 
 fn plot_manderblot(escaped_at_vec: Vec<isize>) {
+    // For storing the sequence
     let mut str = String::new();
     for item in escaped_at_vec {
+        // Transforming iter value into string sequence
         let val = match item {
             0..=2 => ' ',
             0..=5 => '.',
@@ -60,19 +64,33 @@ fn plot_manderblot(escaped_at_vec: Vec<isize>) {
 
 fn main() {
     println!("MandelBrot Set visualization in Rust");
+
+    // Creating the x and y axis
     let axis = create_canvas();
+
+    // Vector to store the no of iterations
     let mut iter_vec = Vec::new();
     for item in axis {
         for row_item in item {
+            // The below function returns the iter value of the function when it blew up.
             let iter = escaped_at(row_item);
+
+            // Storing the values into a vector
             iter_vec.push(iter);
         }
     }
+    // The below vector shows the no. of iterations the equations took to blow up.
     println!("Escapted at vec : {:?}", iter_vec);
+
+    // The below map shows the iter and count for visualization purposes.
     let mut map = HashMap::new();
     for val in &iter_vec {
         *map.entry(val).or_insert(0) += 1;
     }
+
+    // Printing our map
     println!("{:?}", map);
+
+    // Plotting the manderblot set
     plot_manderblot(iter_vec);
 }
