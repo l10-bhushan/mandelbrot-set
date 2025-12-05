@@ -54,3 +54,9 @@ fn plot_manderblot(escaped_at_vec: Vec<isize>) {
 
         str.push(val);
     }
+
+## 🖥 Output Preview
+
+Below is the Mandelbrot Set rendered in the terminal using ASCII:
+
+<img width="1110" height="708" alt="Screenshot 2025-12-05 at 8 22 55 PM" src="https://github.com/user-attachments/assets/2b5998ab-8e79-43ba-86ff-fe2365263e40" />
